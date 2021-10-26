@@ -21,8 +21,6 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ZupIT/horusec/internal/utils/file"
-
 	doubleStar "github.com/bmatcuk/doublestar/v4"
 	"github.com/go-enry/go-enry/v2"
 	"github.com/google/uuid"
@@ -135,12 +133,12 @@ func (ld *LanguageDetect) filesAndFoldersToIgnore(path string) bool {
 
 func (ld *LanguageDetect) checkDefaultPathsToIgnore(path string) bool {
 	for _, value := range toignore.GetDefaultFoldersToIgnore() {
-		if strings.Contains(path, file.ReplacePathSeparator(value)) {
+		if strings.Contains(path, value) {
 			return true
 		}
 	}
 	if !ld.configs.EnableGitHistoryAnalysis {
-		return strings.Contains(path, file.ReplacePathSeparator("/.git/"))
+		return strings.Contains(path, ".git")
 	}
 	return false
 }
@@ -166,7 +164,7 @@ func (ld *LanguageDetect) checkFileExtensionInvalid(path string) bool {
 }
 
 func (ld *LanguageDetect) copyProjectToHorusecFolder(directory string) error {
-	folderDstName := file.ReplacePathSeparator(fmt.Sprintf("%s/.horusec/%s", directory, ld.analysisID.String()))
+	folderDstName := filepath.Join(directory, ".horusec", ld.analysisID.String())
 	err := copy.Copy(directory, folderDstName, ld.filesAndFoldersToIgnore)
 	if err != nil {
 		logger.LogErrorWithLevel(messages.MsgErrorCopyProjectToHorusecAnalysis, err)
