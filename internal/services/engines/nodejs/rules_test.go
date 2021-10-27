@@ -26,7 +26,7 @@ func TestRulesVulnerableCode(t *testing.T) {
 		{
 			Name: "HS-JAVASCRIPT-1",
 			Rule: NewNoLogSensitiveInformationInConsole(),
-			Src:  SampleVulnerableJavaScriptLogSensitiveInformation,
+			Src:  SampleVulnerableHSJAVASCRIPT1,
 			Findings: []engine.Finding{
 				{
 					CodeSample: `console.log("user email: ", email)`,
@@ -47,7 +47,7 @@ func TestRulesVulnerableCode(t *testing.T) {
 		{
 			Name: "HS-JAVASCRIPT-2",
 			Rule: NewNoUseEval(),
-			Src:  SampleVulnerableJavaScriptUseEval,
+			Src:  SampleVulnerableHSJAVASCRIPT2,
 			Findings: []engine.Finding{
 				{
 					CodeSample: `eval("bash -c" + req.body);`,
@@ -61,7 +61,7 @@ func TestRulesVulnerableCode(t *testing.T) {
 		{
 			Name: "HS-JAVASCRIPT-3",
 			Rule: NewNoDisableTlsRejectUnauthorized(),
-			Src:  SampleVulnerableJavaScriptDisableTlsRejectUnauthorized,
+			Src:  SampleVulnerableHSJAVASCRIPT3,
 			Findings: []engine.Finding{
 				{
 					CodeSample: `process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";`,
@@ -82,7 +82,7 @@ func TestRulesSafeCode(t *testing.T) {
 		{
 			Name: "HS-JAVASCRIPT-2",
 			Rule: NewNoUseEval(),
-			Src:  SampleSafeJavaScriptUseEval,
+			Src:  SampleSafeHSJAVASCRIPT2,
 		},
 	}
 

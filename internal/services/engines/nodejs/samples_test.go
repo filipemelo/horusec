@@ -15,22 +15,26 @@
 package nodejs
 
 const (
-	SampleSafeJavaScriptUseEval = `
-function f() {
-	eval("echo foo");
-}
-	`
+	SampleVulnerableHSJAVASCRIPT1 = `
+console.log("user email: ", email) 
+console.debug("user password: ", pwd)
+`
 
-	SampleVulnerableJavaScriptDisableTlsRejectUnauthorized = `
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-	`
-	SampleVulnerableJavaScriptUseEval = `
+	SampleVulnerableHSJAVASCRIPT2 = `
 function f(req) {
 	eval("bash -c" + req.body);
 }
-	`
-	SampleVulnerableJavaScriptLogSensitiveInformation = `
-console.log("user email: ", email) 
-console.debug("user password: ", pwd) 
-	`
+`
+
+	SampleVulnerableHSJAVASCRIPT3 = `
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+`
+)
+
+const (
+	SampleSafeHSJAVASCRIPT2 = `
+function f() {
+	eval("echo foo");
+}
+`
 )
